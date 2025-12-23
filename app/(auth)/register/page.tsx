@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { registerUser, clearError } from "@/store/authSlice";
+import { registerUser, clearError } from "@/features/auth/authSlice";
 
 export default function RegisterPage() {
   const router = useRouter();
