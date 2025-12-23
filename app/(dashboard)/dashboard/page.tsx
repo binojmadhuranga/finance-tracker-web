@@ -1,21 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchProfile, logoutUser } from "@/features/auth/authSlice";
+import { logoutUser } from "@/features/auth/authSlice";
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
   const { user, isLoading } = useAppSelector((state) => state.auth);
 
-  // Restore auth state on dashboard load
-  useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
-
   const handleLogout = () => {
     dispatch(logoutUser());
-    // middleware will redirect to /login
+    // AuthProvider will redirect to /login
   };
 
   // Loading state while restoring session
