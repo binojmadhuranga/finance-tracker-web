@@ -26,7 +26,6 @@ export interface RegisterResponse {
 }
 
 export interface LoginResponse {
-  token: string;
   user: User;
 }
 
@@ -38,4 +37,13 @@ export const authService = {
   async login(data: LoginRequest): Promise<LoginResponse> {
     return apiClient.post<LoginResponse>("/auth/login", data);
   },
+
+  async me(): Promise<User> {
+    return apiClient.get<User>("/auth/me");
+  },
+
+  async logout(): Promise<void> {
+    return apiClient.post("/auth/logout");
+  },
+
 };
