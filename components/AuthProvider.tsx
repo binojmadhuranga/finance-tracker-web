@@ -11,9 +11,11 @@ export default function AuthProvider({
 }) {
   const dispatch = useAppDispatch();
   const [isInitializing, setIsInitializing] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Restore session on app load
   useEffect(() => {
+    setIsMounted(true);
     const restoreSession = async () => {
       try {
         await dispatch(fetchProfile()).unwrap();
@@ -29,7 +31,7 @@ export default function AuthProvider({
   }, [dispatch]);
 
   // Show loading spinner during initial session restore
-  if (isInitializing) {
+  if (!isMounted || isInitializing) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-900">
         <div className="text-center">

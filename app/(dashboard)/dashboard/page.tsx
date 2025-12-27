@@ -11,9 +11,11 @@ export default function DashboardPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Fetch transactions
   useEffect(() => {
+    setIsMounted(true);
     if (user) {
       fetchTransactions();
     }
@@ -215,11 +217,13 @@ export default function DashboardPage() {
                   <div>
                     <h4 className="text-white font-medium">{transaction.note}</h4>
                     <p className="text-slate-400 text-sm">
-                      {new Date(transaction.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+                      {isMounted
+                        ? new Date(transaction.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })
+                        : transaction.date}
                     </p>
                   </div>
                 </div>
